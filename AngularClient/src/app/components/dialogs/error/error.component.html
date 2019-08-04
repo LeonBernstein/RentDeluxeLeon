@@ -1,0 +1,41 @@
+<div class="errorContainer popupContainer">
+	<div class="closeDialog"
+			 *ngIf="errorType !== criticalErrorType">
+		<a (click)="closeThisDialog()">&#9747;</a>
+	</div>
+	<h2 mat-dialog-title>{{errorTitle}}</h2>
+	<p *ngIf="getCommonText()">{{getCommonText()}}</p>
+	<a class="errorDetails"
+		 (click)="flipIsDetailsOpen()"
+		 *ngIf="error">
+		<span class="bluishText">פרטים</span>
+		&nbsp;&nbsp;
+		<i [ngClass]="{'rotateDown': isDetailsOpen}">&#8250;</i>
+	</a>
+	<div class="mainDialogContent"
+			 [ngStyle]="{'max-height': isDetailsOpen ? '300px' : '0'}"
+			 *ngIf="error">
+		<p>{{error | json}}</p>
+	</div>
+	<div class="buttonContainer"
+			 [ngClass]="{'twoButtons': httpStatus === httpStatus401}"
+			 [ngStyle]="{'margin-top': error ? 'unset' : '25px'}">
+		<button mat-flat-button
+						type="button"
+						[color]="httpStatus !== httpStatus401 ? 'primary' : 'accent'"
+						*ngIf="errorType !== criticalErrorType;
+						else elseButton"
+						(click)="closeThisDialog()">סגור</button>
+		<ng-template #elseButton>
+			<button mat-flat-button
+							type="button"
+							color="primary"
+							(click)="reloadSite()">רענן</button>
+		</ng-template>
+		<button mat-flat-button
+						type="button"
+						color="primary"
+						*ngIf="httpStatus === httpStatus401"
+						(click)="openLoginComponent()">התחבר</button>
+	</div>
+</div>

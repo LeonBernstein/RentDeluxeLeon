@@ -1,0 +1,29 @@
+@import 'myColors';
+@import 'fonts';
+
+nav {
+	background-color: rgba(0, 0, 0, .5);
+}
+
+a {
+	font-size: $m-Font;
+	color: $myOffWhite;
+	
+	&.mat-tab-link {
+		min-width: 133px;
+		padding: 0 24px;
+		
+		@media (max-width: 599px) {
+			min-width: 92px;
+			padding: 0 15px;
+		}
+	}
+}
+
+.mat-tab-label-active {
+	opacity: 1;
+}
+
+::ng-deep #carsNavBar .mat-ripple-element {
+	background-color: rgba(255, 255, 255, .25);
+}

@@ -1,0 +1,19 @@
+@import 'myColors';
+
+// Font Sizes
+
+$baseFontSize: 15px;
+
+$xs-Font: $baseFontSize - 2;
+$s-Font: $baseFontSize - 1;
+$m-Font: $baseFontSize;
+$l-Font: $baseFontSize + 1;
+$xl-Font: $baseFontSize + 2;
+
+// Font family
+
+$mainFontFamily: 'Helvetica Neue', 'Helvetica', 'Ariel', 'sans-serif';
+
+// Font Color
+
+$myFontColor: $myOffWhite;

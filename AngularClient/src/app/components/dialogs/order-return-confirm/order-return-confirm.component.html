@@ -1,0 +1,30 @@
+<div class="container">
+	<h2>סיכום:</h2>
+	<div *ngIf="lateDays">
+		<p>
+			<span>מחיר:</span>
+			<strong>{{order.price + ' &#8362;'}}</strong>
+		</p>
+		<p>
+			<span>ימי איחור:</span>
+			<strong> {{lateDays}}</strong>
+		</p>
+		<p>
+			<span>מחיר ליום איחור:</span>
+			<strong>{{order.vehicle.carClass.delayDailyPrice + ' &#8362;'}}</strong>
+		</p>
+	</div>
+	<p>
+		<span>מחיר סופי:</span>
+		<strong style="font-size: 20px;">{{totalPrice + ' &#8362;'}}</strong>
+	</p>
+	<div class="buttonsContainer">
+		<button mat-flat-button
+						type="button"
+						(click)="closeDialog(false)">ביטול</button>
+		<button mat-flat-button
+						color="primary"
+						type="button"
+						(click)="closeDialog(true)">מאשר</button>
+	</div>
+</div>

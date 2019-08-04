@@ -1,0 +1,147 @@
+<div class="mainContainer contentGrid">
+	<div class="iconsContainer">
+		<a (click)="getData()">
+			<span>רענן</span>
+			<mat-icon aria-hidden="false"
+								aria-label="Refresh">autorenew</mat-icon>
+		</a>
+	</div>
+	<div class="fieldsContainer">
+		<mat-form-field appearance="outline"
+										class="blackBackground">
+			<mat-label>חיפוש מהיר</mat-label>
+			<input matInput
+						 [(ngModel)]="fastSearch"
+						 (keyup)="applyFilters()"
+						 spellcheck="false"
+						 placeholder="חפש...">
+			<mat-icon matSuffix>search</mat-icon>
+		</mat-form-field>
+	</div>
+	<div class="hr"></div>
+	<div class="tableContainer"
+			 *ngIf="dataSource">
+		<div class="mat-elevation-z8">
+			<table mat-table
+						 matSort
+						 matSortActive="endDate"
+						 matSortDirection="desc"
+						 [dataSource]="dataSource">
+				<ng-container matColumnDef="orderId">
+					<th mat-header-cell
+							mat-sort-header
+							*matHeaderCellDef>מספר הזמנה</th>
+					<td mat-cell
+							*matCellDef="let x">{{x.orderId}}</td>
+				</ng-container>
+				<ng-container matColumnDef="vehicle.vehicleNumber">
+					<th mat-header-cell
+							mat-sort-header
+							*matHeaderCellDef>מספר רכב</th>
+					<td mat-cell
+							*matCellDef="let x">{{x.vehicle.vehicleNumber | carNumber}}</td>
+				</ng-container>
+				<ng-container matColumnDef="user.person.firstName">
+					<th mat-header-cell
+							mat-sort-header
+							*matHeaderCellDef>שם פרטי</th>
+					<td mat-cell
+							*matCellDef="let x">{{x.user.person.firstName}}</td>
+				</ng-container>
+				<ng-container matColumnDef="user.person.lastName">
+					<th mat-header-cell
+							mat-sort-header
+							*matHeaderCellDef>שם משפחה</th>
+					<td mat-cell
+							*matCellDef="let x">{{x.user.person.lastName}}</td>
+				</ng-container>
+				<ng-container matColumnDef="user.person.idCardNum">
+					<th mat-header-cell
+							mat-sort-header
+							*matHeaderCellDef>ת.ז</th>
+					<td mat-cell
+							*matCellDef="let x">{{x.user.person.idCardNum}}</td>
+				</ng-container>
+				<ng-container matColumnDef="startDate">
+					<th mat-header-cell
+							mat-sort-header
+							*matHeaderCellDef>תאריך התחלה</th>
+					<td mat-cell
+							*matCellDef="let x">{{x.startDate | date : 'dd/MM/yyyy'}}</td>
+				</ng-container>
+				<ng-container matColumnDef="endDate">
+					<th mat-header-cell
+							mat-sort-header
+							*matHeaderCellDef>תאריך הזחרה</th>
+					<td mat-cell
+							*matCellDef="let x">{{x.endDate | date : 'dd/MM/yyyy'}}</td>
+				</ng-container>
+				<ng-container matColumnDef="actualEndDate">
+					<th mat-header-cell
+							mat-sort-header
+							*matHeaderCellDef>תאריך החזרה בפועל</th>
+					<td mat-cell
+							*matCellDef="let x">{{x.actualEndDate | date : 'dd/MM/yyyy'}}</td>
+				</ng-container>
+				<ng-container matColumnDef="vehicle.model.name">
+					<th mat-header-cell
+							mat-sort-header
+							*matHeaderCellDef>דגם</th>
+					<td mat-cell
+							*matCellDef="let x">{{x.vehicle.model.name}}</td>
+				</ng-container>
+				<ng-container matColumnDef="vehicle.model.manufacturer.name">
+					<th mat-header-cell
+							mat-sort-header
+							*matHeaderCellDef>יצרן</th>
+					<td mat-cell
+							*matCellDef="let x">{{x.vehicle.model.manufacturer.name}}</td>
+				</ng-container>
+				<ng-container matColumnDef="price">
+					<th mat-header-cell
+							mat-sort-header
+							*matHeaderCellDef>מחיר</th>
+					<td mat-cell
+							*matCellDef="let x">{{x.price}} &#8362;</td>
+				</ng-container>
+				<ng-container matColumnDef="totalPrice">
+					<th mat-header-cell
+							mat-sort-header
+							*matHeaderCellDef>מחיר סופי</th>
+					<td mat-cell
+							*matCellDef="let x">{{x.totalPrice ? x.totalPrice + ' &#8362;' : ''}}</td>
+				</ng-container>
+				<ng-container matColumnDef="return">
+					<th mat-header-cell
+							*matHeaderCellDef>סיום הזמנה</th>
+					<td mat-cell
+							*matCellDef="let x">
+						<a *ngIf="!x.actualEndDate; else carReturned"
+							 (click)="returnOrder(x.orderId)">
+							<mat-icon aria-hidden="false"
+												aria-label="Refresh">keyboard_return</mat-icon>
+						</a>
+						<ng-template #carReturned>
+							<span>&#10003;</span>
+						</ng-template>
+					</td>
+				</ng-container>
+				<tr mat-header-row
+						class="tableRow"
+						*matHeaderRowDef="columns"></tr>
+				<tr mat-row
+						class="tableRow"
+						*matRowDef="let row; columns: columns;"></tr>
+			</table>
+			<div class="noTableContent"
+					 *ngIf="dataSource.filteredData.length == 0">
+				<div>
+					<span>אין נתונים להצגה</span>
+				</div>
+			</div>
+			<mat-paginator [pageSize]="10"
+										 [pageSizeOptions]="[10, 15, 20]"
+										 showFirstLastButtons></mat-paginator>
+		</div>
+	</div>
+</div>

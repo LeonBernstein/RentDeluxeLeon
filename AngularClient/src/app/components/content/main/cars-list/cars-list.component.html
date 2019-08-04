@@ -1,0 +1,144 @@
+<div class="carsMainContainer">
+	<div class="carsFiltersContainer">
+		<div class="fieldContainerDarker">
+			<mat-form-field appearance="fill">
+				<mat-label>יצרן</mat-label>
+				<mat-select [(ngModel)]="manufacturerFilterValue"
+										#manufacturerId
+										(selectionChange)="manufacturerSelectionChange()"
+										tabindex="1">
+					<mat-option value=""
+											selected>כולם</mat-option>
+					<mat-option *ngFor="let manufacturer of (manufacturers | isActive | sort : 'name')"
+											[value]="manufacturer.vehicleManufacturerId">
+						{{manufacturer.name}}
+					</mat-option>
+				</mat-select>
+			</mat-form-field>
+		</div>
+		<div class="fieldContainerDarker">
+			<mat-form-field appearance="fill">
+				<mat-label>דגם</mat-label>
+				<mat-select [(ngModel)]="modelFilterValue"
+										#modelId
+										(selectionChange)="modelSelectionChange()"
+										tabindex="2">
+					<mat-option value=""
+											selected>כולם</mat-option>
+					<mat-option *ngFor="let model of (models | isActive | sort : ['name', 'manufacturer.name'])"
+											[value]="model.vehicleModelId">
+						{{model.name + " [" + model.manufacturer.name + "]"}}
+					</mat-option>
+				</mat-select>
+			</mat-form-field>
+		</div>
+		<div class="fieldContainerDarker">
+			<mat-form-field appearance="fill">
+				<mat-label>גיר</mat-label>
+				<mat-select [(ngModel)]="gearFilterValue"
+										#gearTypeId
+										tabindex="3">
+					<mat-option value=""
+											selected>כולם</mat-option>
+					<mat-option *ngFor="let gear of (gears | isActive | sort : 'name')"
+											[value]="gear.gearTypeId">
+						{{gear.name}}
+					</mat-option>
+				</mat-select>
+			</mat-form-field>
+		</div>
+		<div class="fieldContainerDarker">
+			<mat-form-field appearance="fill">
+				<mat-label>משנת יצור</mat-label>
+				<input matInput
+							 [(ngModel)]="fromYearFilterValue"
+							 #fromManufactureDatePicker
+							 type="number"
+							 tabindex="4">
+			</mat-form-field>
+		</div>
+		<div class="fieldContainerDarker">
+			<mat-form-field appearance="fill">
+				<mat-label>עד שנת יצור</mat-label>
+				<input matInput
+							 [(ngModel)]="toYearFilterValue"
+							 #toManufactureDatePicker
+							 type="number"
+							 tabindex="5">
+			</mat-form-field>
+		</div>
+		<div class="fieldContainerDarker">
+			<mat-form-field appearance="fill">
+				<mat-label>חיפוש מהיר</mat-label>
+				<input matInput
+							 [(ngModel)]="fastSearchFilterValue"
+							 #fastSearch
+							 type="text"
+							 spellcheck="false"
+							 tabindex="6">
+			</mat-form-field>
+		</div>
+	</div>
+	<div class="carsCardsContainer">
+		<div *ngFor="let car of(carsList |
+		sort : 'model.vehicleType.name' |
+		selectFilter : manufacturerFilterValue : 'model.manufacturerId' |
+		selectFilter : modelFilterValue : 'modelId' |
+		selectFilter : gearFilterValue : 'gearTypeId' |
+		datesRange : fromYearFilterValue : toYearFilterValue : 'manufactureDate' |
+		fastSearch : fastSearchFilterValue : ['model.name', 'model.manufacturer.name', 'carClass.name', 'model.vehicleType.name', 'gearType.name', 'atBranch.name', 'manufactureDate'])"
+				 class="carCard fadeIn">
+			<div class="imgContainer">
+				<img [src]="car.picturePath ? pictureUrlPrefix + car.picturePath : carAvatar.src"
+						 [alt]="car.picturePath ? 'CarAvatar' : carAvatar.alt">
+			</div>
+			<div class="hr"></div>
+			<div class="detailsContainer">
+				<div class="row"
+						 [matTooltip]="car.model.manufacturer.name + ' - ' + car.model.name">
+					<span><strong>דגם</strong></span>
+					<span>{{car.model.manufacturer.name + ' - ' + car.model.name}}</span>
+				</div>
+				<div class="row">
+					<span><strong>שנה</strong></span>
+					<span>{{car.manufactureDate | date : 'yyyy'}}</span>
+				</div>
+				<div class="row">
+					<span><strong>רמה</strong></span>
+					<span>{{car.carClass.name}}</span>
+				</div>
+				<div class="row">
+					<span><strong>סוג רכב</strong></span>
+					<span>{{car.model.vehicleType.name}}</span>
+				</div>
+				<div class="row">
+					<span><strong>סוג תיבה</strong></span>
+					<span>{{car.gearType.name}}</span>
+				</div>
+				<div class="row">
+					<span><strong>מיקום</strong></span>
+					<span>{{car.atBranch.name}}</span>
+				</div>
+				<div class="buttonsRos">
+					<button mat-flat-button
+									type="button"
+									color="primary"
+									(click)="showCarsDetails(car.vehicleId); storeCarToFavorite(car.vehicleId)">פרטים</button>
+					<button mat-flat-button
+									type="button"
+									color="primary"
+									(click)="openOrder(car.vehicleId);storeCarToFavorite(car.vehicleId)">הזמן</button>
+				</div>
+			</div>
+		</div>
+	</div>
+	<div class="lastVisitedContainer">
+		<div class="figure fadeIn"
+				 *ngFor="let favoriteCar of favoriteCars"
+				 (click)="showCarsDetails(favoriteCar.vehicleId)">
+			<img [src]="favoriteCar.picturePath ? pictureUrlPrefix + favoriteCar.picturePath : carAvatar.src"
+					 [alt]="favoriteCar.picturePath ? 'CarAvatar' : carAvatar.alt">
+			<span class="figcaption">{{favoriteCar.model.manufacturer.name + ' - ' + favoriteCar.model.name}}</span>
+		</div>
+	</div>
+</div>

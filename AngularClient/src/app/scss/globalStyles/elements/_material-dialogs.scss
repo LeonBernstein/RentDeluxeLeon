@@ -1,0 +1,30 @@
+
+
+mat-dialog-container {
+	background-color: rgba(0, 0, 0, .95) !important;
+	max-height: 100vh !important;
+}
+
+
+.mat-dialog-container {
+	@include scrollBar($mySpecialBlue);
+}
+
+
+.myMatDialogConfig {
+	flex-grow: 1;
+	
+	@media (min-width: 600px) {
+		max-width: 450px !important;
+	}
+}
+
+.loaderDialogConfig {
+	width: 100% !important;
+	height: 100vh !important;
+	
+	> mat-dialog-container {
+		background-color: rgba(0, 0, 0, .75) !important;
+		border-radius: unset !important;
+	}
+}

@@ -1,0 +1,19 @@
+@keyframes appearAnimation {
+	from {
+		opacity: 0;
+	}
+}
+
+@keyframes disappearAnimation {
+	to {
+		opacity: 0;
+	}
+}
+
+@keyframes positionAbsolute {
+	from {
+		position: absolute;
+	} to {
+		position: absolute;
+	}
+}

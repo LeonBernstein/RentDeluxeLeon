@@ -1,0 +1,89 @@
+<div class="mainContainer contentGrid detailsContainer">
+	<div class="iconsContainer"></div>
+	<div class="fieldsDetailsContainer"
+			 [ngStyle]="{'opacity': car ? '1' : '0'}">
+		<div class="imgContainer">
+			<img *ngIf="car"
+					 [src]="car.picturePath ? pictureUrlPrefix + car.picturePath : carAvatar.src"
+					 [alt]="car.picturePath ? 'CarAvatar' : carAvatar.alt">
+		</div>
+		<div class="detailsContainer"
+				 *ngIf="car">
+			<div class="row">
+				<span><strong>יצרן</strong></span>
+				<span>{{car.model.manufacturer.name}}</span>
+			</div>
+			<div class="row">
+				<span><strong>דגם</strong></span>
+				<span>{{car.model.name}}</span>
+			</div>
+			<div class="row">
+				<span><strong>שנה</strong></span>
+				<span>{{car.manufactureDate | date : 'yyyy'}}</span>
+			</div>
+			<div class="row">
+				<span><strong>רמה</strong></span>
+				<span>{{car.carClass.name}}</span>
+			</div>
+			<div class="row">
+				<span><strong>סוג רכב</strong></span>
+				<span>{{car.model.vehicleType.name}}</span>
+			</div>
+			<div class="row">
+				<span><strong>סוג תיבה</strong></span>
+				<span>{{car.gearType.name}}</span>
+			</div>
+			<div class="row">
+				<span><strong>מיקום</strong></span>
+				<span>{{car.atBranch.name}}</span>
+			</div>
+			<div class="row">
+				<span><strong>מחיר ליום</strong></span>
+				<span>{{car.carClass.dailyPrice}} &#8362;</span>
+			</div>
+			<div class="row">
+				<span><strong>מחיר ליום איחור</strong></span>
+				<span>{{car.carClass.delayDailyPrice}} &#8362;</span>
+			</div>
+		</div>
+		<div class="orderDetailsComponent"
+				 *ngIf="car">
+			<div class="orderDetailsField">
+				<span><strong>תאריך התחלה:</strong></span>
+				<span>{{dateNow | date : 'dd/MM/yyyy'}}</span>
+			</div>
+			<div class="orderDetailsField">
+				<mat-label><strong>כמות ימים להשכרה:</strong></mat-label>
+				<mat-form-field>
+					<input matInput
+								 #numOfDays
+								 numericOnly
+								 numRounder
+								 noNegativeNum
+								 type="number"
+								 min="0"
+								 max="365"
+								 autocomplete="off">
+				</mat-form-field>
+			</div>
+			<div class="orderDetailsField">
+				<h3>סה"כ מחיר:</h3>
+				<h2>{{numOfDays.value * car.carClass.dailyPrice}} &#8362;</h2>
+			</div>
+		</div>
+	</div>
+	<div class="bottomButtonsContainer">
+		<button mat-flat-button
+						type="button"
+						(click)="router.navigateByUrl('carsList')">חזור</button>
+		<button mat-flat-button
+						type="button"
+						color="accent"
+						(click)="showCarsDetails()">פרטים</button>
+		<button mat-flat-button
+						type="button"
+						color="primary"
+						[disabled]="!days || days < 1"
+						(click)="sendOrder()">הזמן</button>
+	</div>
+</div>

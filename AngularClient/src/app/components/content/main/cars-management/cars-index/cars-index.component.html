@@ -1,0 +1,197 @@
+<div class="mainContainer contentGrid">
+	<div class="iconsContainer">
+		<a [routerLink]="'new'">
+			<span>הוסף</span>
+			<mat-icon aria-hidden="false"
+								aria-label="Add">add_circle_outline</mat-icon>
+		</a>
+		<a (click)="getData()">
+			<span>רענן</span>
+			<mat-icon aria-hidden="false"
+								aria-label="Refresh">autorenew</mat-icon>
+		</a>
+	</div>
+	<div class="fieldsContainer">
+		<mat-form-field appearance="outline"
+										class="blackBackground">
+			<mat-label>חיפוש מהיר</mat-label>
+			<input matInput
+						 [(ngModel)]="fastSearch"
+						 (keyup)="applyFilters()"
+						 spellcheck="false"
+						 placeholder="חפש...">
+			<mat-icon matSuffix>search</mat-icon>
+		</mat-form-field>
+	</div>
+	<div class="hr"></div>
+	<div class="tableContainer"
+			 *ngIf="dataSource">
+		<div class="mat-elevation-z8">
+			<table mat-table
+						 matSort
+						 [dataSource]="dataSource">
+				<ng-container matColumnDef="index">
+					<th mat-header-cell
+							*matHeaderCellDef>#</th>
+					<td mat-cell
+							*matCellDef="let i = index">{{i + 1}}</td>
+				</ng-container>
+				<ng-container matColumnDef="vehicleId">
+					<th mat-header-cell
+							mat-sort-header
+							*matHeaderCellDef>קוד</th>
+					<td mat-cell
+							*matCellDef="let x">{{x.vehicleId}}</td>
+				</ng-container>
+				<ng-container matColumnDef="isActive">
+					<th mat-header-cell
+							mat-sort-header
+							*matHeaderCellDef>פעיל</th>
+					<td mat-cell
+							class="greenText"
+							*matCellDef="let x">{{x.isActive ? '&#10003;' : ''}}</td>
+				</ng-container>
+				<ng-container matColumnDef="picturePath">
+					<th mat-header-cell
+							mat-sort-header
+							*matHeaderCellDef>תמונה</th>
+					<td mat-cell
+							class="tableImageContainer"
+							*matCellDef="let x">
+						<img [src]="x.picturePath ? pictureUrlPrefix + x.picturePath : carAvatar.src"
+								 [alt]="x.picturePath ? 'CarAvatar' : carAvatar.alt">
+					</td>
+				</ng-container>
+				<ng-container matColumnDef="vehicleNumber">
+					<th mat-header-cell
+							mat-sort-header
+							*matHeaderCellDef>מספר רכב</th>
+					<td mat-cell
+							*matCellDef="let x">{{x.vehicleNumber | carNumber}}</td>
+				</ng-container>
+				<ng-container matColumnDef="manufactureDate">
+					<th mat-header-cell
+							mat-sort-header
+							*matHeaderCellDef>תאריך יצור</th>
+					<td mat-cell
+							*matCellDef="let x">{{x.manufactureDate  | date : 'dd/MM/yyyy'}}</td>
+				</ng-container>
+				<ng-container matColumnDef="mileage">
+					<th mat-header-cell
+							mat-sort-header
+							*matHeaderCellDef>מד אוץ</th>
+					<td mat-cell
+							*matCellDef="let x">{{x.mileage}}</td>
+				</ng-container>
+				<ng-container matColumnDef="isProper">
+					<th mat-header-cell
+							mat-sort-header
+							*matHeaderCellDef>תקין</th>
+					<td mat-cell
+							*matCellDef="let x">{{x.isProper ? '&#10003;' : ''}}</td>
+				</ng-container>
+				<ng-container matColumnDef="isAvailable">
+					<th mat-header-cell
+							mat-sort-header
+							*matHeaderCellDef>זמין</th>
+					<td mat-cell
+							*matCellDef="let x">{{x.isAvailable ? '&#10003;' : ''}}</td>
+				</ng-container>
+				<ng-container matColumnDef="model.name">
+					<th mat-header-cell
+							mat-sort-header
+							*matHeaderCellDef>דגם</th>
+					<td mat-cell
+							*matCellDef="let x">{{x.model.name}}</td>
+				</ng-container>
+				<ng-container matColumnDef="model.manufacturer.name">
+					<th mat-header-cell
+							mat-sort-header
+							*matHeaderCellDef>יצרן</th>
+					<td mat-cell
+							*matCellDef="let x">{{x.model.manufacturer.name}}</td>
+				</ng-container>
+				<ng-container matColumnDef="model.vehicleType.name">
+					<th mat-header-cell
+							mat-sort-header
+							*matHeaderCellDef>סוג רכב</th>
+					<td mat-cell
+							*matCellDef="let x">{{x.model.vehicleType.name}}</td>
+				</ng-container>
+				<ng-container matColumnDef="carClass.name">
+					<th mat-header-cell
+							mat-sort-header
+							*matHeaderCellDef>דרגה</th>
+					<td mat-cell
+							*matCellDef="let x">{{x.carClass.name}}</td>
+				</ng-container>
+				<ng-container matColumnDef="gearType.name">
+					<th mat-header-cell
+							mat-sort-header
+							*matHeaderCellDef>סוג גיר</th>
+					<td mat-cell
+							*matCellDef="let x">{{x.gearType.name}}</td>
+				</ng-container>
+				<ng-container matColumnDef="atBranch.name">
+					<th mat-header-cell
+							mat-sort-header
+							*matHeaderCellDef>סניף</th>
+					<td mat-cell
+							*matCellDef="let x">{{x.atBranch.name}}</td>
+				</ng-container>
+				<ng-container matColumnDef="edit">
+					<th mat-header-cell
+							*matHeaderCellDef>ערוך</th>
+					<td mat-cell
+							*matCellDef="let x">
+						<a *ngIf="x.isActive"
+							 [routerLink]="x.vehicleId">
+							<mat-icon aria-hidden="false"
+												aria-label="Refresh">edit</mat-icon>
+						</a>
+					</td>
+				</ng-container>
+				<ng-container matColumnDef="toggleActive">
+					<th mat-header-cell
+							*matHeaderCellDef>מחק/ שחזר</th>
+					<td mat-cell
+							style="padding-right: 24px;"
+							*matCellDef="let x">
+						<a *ngIf="x.isActive; else recycleIcon"
+							 (click)="deleteCar(x.vehicleId)">
+							<mat-icon aria-hidden="false"
+												aria-label="Refresh">delete</mat-icon>
+						</a>
+						<ng-template #recycleIcon>
+							<a (click)="restoreCar(x.vehicleId)"
+								 class="recycleIcon">&#9850;</a>
+						</ng-template>
+					</td>
+				</ng-container>
+				<tr mat-header-row
+						class="tableRow"
+						*matHeaderRowDef="columns"></tr>
+				<tr mat-row
+						class="tableRow"
+						[ngClass]="{'fadedText': !row.isActive}"
+						*matRowDef="let row; columns: columns;"></tr>
+			</table>
+			<div class="noTableContent"
+					 *ngIf="dataSource.filteredData.length == 0">
+				<div>
+					<span>אין נתונים להצגה</span>
+				</div>
+			</div>
+			<div class="tableFooter">
+				<div class="checkBoxContainer">
+					<mat-checkbox [checked]="true"
+												(change)="applyFilters()"
+												[(ngModel)]="showOnlyActive">הצג רק פעילים</mat-checkbox>
+				</div>
+				<mat-paginator [pageSize]="10"
+											 [pageSizeOptions]="[10, 15, 20]"
+											 showFirstLastButtons></mat-paginator>
+			</div>
+		</div>
+	</div>
+</div>

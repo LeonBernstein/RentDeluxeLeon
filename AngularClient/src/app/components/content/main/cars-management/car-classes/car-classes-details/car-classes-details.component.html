@@ -1,0 +1,94 @@
+<div class="mainContainer contentGrid detailsContainer">
+	<div class="iconsContainer">
+		<a *ngIf="model?.carClassId"
+			 (click)="getData()">
+			<span>רענן</span>
+			<mat-icon aria-hidden="false"
+								aria-label="Refresh">autorenew</mat-icon>
+		</a>
+		<a (click)="carClassForm?.ngSubmit.emit()">
+			<span>שמור</span>
+			<mat-icon aria-hidden="false"
+								aria-label="Refresh">save</mat-icon>
+		</a>
+	</div>
+	<div class="fieldsDetailsContainer"
+			 [ngStyle]="{'opacity': model ? '1' : '0'}">
+		<form *ngIf="model"
+					class="formContainer"
+					#carClassForm="ngForm"
+					(ngSubmit)="saveData()">
+			<div class="fieldContainer">
+				<mat-label>קוד</mat-label>
+				<mat-form-field appearance="outline">
+					<input matInput
+								 [(ngModel)]="model.carClassId"
+								 #carClassId="ngModel"
+								 name="carClassId"
+								 type="number"
+								 spellcheck="false"
+								 disabled
+								 required>
+				</mat-form-field>
+			</div>
+			<div class="fieldContainer">
+				<mat-label>שם</mat-label>
+				<mat-form-field appearance="outline">
+					<input matInput
+								 [(ngModel)]="model.name"
+								 #name="ngModel"
+								 name="name"
+								 type="text"
+								 spellcheck="false"
+								 tabindex="1"
+								 required>
+					<mat-error *ngIf="!name.value">השדה אינו יכול להיות ריק</mat-error>
+				</mat-form-field>
+			</div>
+			<div class="fieldContainer">
+				<mat-label>מחיר ליום</mat-label>
+				<mat-form-field appearance="outline">
+					<input matInput
+								 [ngModel]="model.dailyPrice"
+								 (ngModelChange)="setPrice(dailyPrice)"
+								 #dailyPrice="ngModel"
+								 name="dailyPrice"
+								 type="text"
+								 spellcheck="false"
+								 placeholder="0.00"
+								 tabindex="2"
+								 pattern="^\d{1,16}(\.\d{1,2})?$"
+								 required>
+					<span matSuffix>&#8362;</span>
+					<mat-error *ngIf="!dailyPrice.value">השדה אינו יכול להיות ריק</mat-error>
+					<mat-error *ngIf="dailyPrice.value && dailyPrice?.errors?.pattern">מספר לא תקין</mat-error>
+				</mat-form-field>
+			</div>
+			<div class="fieldContainer">
+				<mat-label>מחיר ליום איחור</mat-label>
+				<mat-form-field appearance="outline">
+					<input matInput
+								 [ngModel]="model.delayDailyPrice"
+								 (ngModelChange)="setPrice(delayDailyPrice)"
+								 #delayDailyPrice="ngModel"
+								 name="delayDailyPrice"
+								 type="text"
+								 spellcheck="false"
+								 placeholder="0.00"
+								 tabindex="2"
+								 pattern="^\d{1,16}(\.\d{1,2})?$"
+								 required>
+					<span matSuffix>&#8362;</span>
+					<mat-error *ngIf="!dailyPrice.value">השדה אינו יכול להיות ריק</mat-error>
+					<mat-error *ngIf="dailyPrice.value && dailyPrice?.errors?.pattern">מספר לא תקין</mat-error>
+				</mat-form-field>
+			</div>
+		</form>
+	</div>
+	<div class="bottomButtonsContainer">
+		<button mat-flat-button
+						type="button"
+						color="primary"
+						(click)="router.navigateByUrl('employees/carsManagement/carClasses')">חזור</button>
+	</div>
+</div>

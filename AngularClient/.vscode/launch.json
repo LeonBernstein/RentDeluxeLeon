@@ -1,0 +1,35 @@
+{
+	// Use IntelliSense to learn about possible attributes.
+	// Hover to view descriptions of existing attributes.
+	// For more information, visit: https://go.microsoft.com/fwlink/?linkid=830387
+	"version": "0.2.0",
+	"configurations": [
+		{
+			"type": "chrome",
+			"request": "attach",
+			"name": "Attach to Localhost",
+			"port": 9222,
+			"url": "localhost:4200/*",
+			"sourceMaps": true,
+			"webRoot": "${workspaceFolder}"
+		},
+		{
+			"type": "chrome",
+			"request": "attach",
+			"name": "Attach to Localhost Routerless",
+			"port": 9222,
+			"url": "localhost:4200",
+			"sourceMaps": true,
+			"webRoot": "${workspaceFolder}"
+		},
+		{
+			"type": "chrome",
+			"request": "attach",
+			"name": "Attach to 127.0.0.1",
+			"port": 9222,
+			"url": "http://127.0.0.1:6613/*",
+			"sourceMaps": true,
+			"webRoot": "${workspaceFolder}"
+		}
+	]
+}

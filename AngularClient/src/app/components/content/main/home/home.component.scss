@@ -1,0 +1,15 @@
+
+.mainFlexContainer {
+	flex-direction: column;
+	justify-content: center;
+	align-items: center;
+	padding: 15px;
+}
+
+.mainHomeCardContainer {
+	padding: 17px;
+	margin: 15px;
+	background-color: rgba(0, 0, 0, .7);
+	animation: appearAnimation .3s .3s linear backwards,
+						 positionAbsolute .3s;
+}

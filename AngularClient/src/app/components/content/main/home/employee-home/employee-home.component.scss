@@ -1,0 +1,11 @@
+.buttonLinksContainer {
+	display: grid;
+	grid-template-rows: auto;
+	grid-gap: 30px;
+	width: 350px;
+}
+
+.mat-linkButton {
+	background-color: #0b7dda;
+	color: white;
+}

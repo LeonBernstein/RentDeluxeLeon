@@ -1,0 +1,16 @@
+
+
+.buttonsContainer {
+	display: flex;
+	justify-content: space-between;
+	padding: 15px 0;
+	
+	> button {
+		width: 125px;
+	}
+}
+
+p span {
+	display: inline-block;
+	width: 115px;
+}

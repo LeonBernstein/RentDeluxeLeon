@@ -1,0 +1,31 @@
+@import '../globalAbstracts/myColors';
+
+/* == Chrome Fixes == */
+
+/* Chrome Autocomplete Fix */
+input:-webkit-autofill,
+input:-webkit-autofill:hover,
+input:-webkit-autofill:focus,
+input:-webkit-autofill:invalid,
+textarea:-webkit-autofill,
+textarea:-webkit-autofill:hover,
+textarea:-webkit-autofill:focus,
+select:-webkit-autofill,
+select:-webkit-autofill:hover,
+select:-webkit-autofill:focus,
+input:-internal-autofill-previewed,
+input:-internal-autofill-selected,
+textarea:-internal-autofill-previewed,
+textarea:-internal-autofill-selected,
+select:-internal-autofill-previewed,
+select:-internal-autofill-selected {
+	-webkit-text-fill-color: $myMainBlack !important;
+	transition: background-color 5000s ease-in-out 5000s, padding-left !important;
+	-webkit-box-shadow: 0 0 0 1000px $myVeryLightBlue inset;
+	// border-radius: 5px !important;
+	// border: none !important;
+	// border-bottom: 1px solid white !important;
+	// background-color: transparent !important;
+	// -webkit-box-shadow: 0 0 0 1000px #000 inset;
+	// box-shadow: 0 0 0 1000px #000 inset;
+}

@@ -1,0 +1,199 @@
+@import '../globalAbstracts/myColors';
+
+.mainFlexContainer {
+	display: flex;
+	min-height: 100%;
+}
+
+.bluishText {
+	color: $myLightBlue;
+}
+
+.popupContainer {
+	display: inline-block;
+	min-width: 250px;
+	width: 100%;
+}
+
+.closeDialog {
+	direction: ltr;
+	
+	a {
+		font-size: $xl-Font;
+	}
+}
+
+.greenText, .greenText * {
+	color: $mySpecialGreen;
+}
+
+.fadedText, .fadedText * {
+	color: rgba(white, .6);
+}
+
+.iconsContainer {
+	justify-self: end;
+	
+	a {
+		display: inline-flex;
+		margin-left: 8px;
+		
+		:first-child {
+			padding-top: 2px;
+			padding-left: 5px;
+		}
+	}
+}
+
+.mainContainer.contentGrid {
+	display: grid;
+	align-items: center;
+	justify-items: center;
+	height: 100%;
+	animation: appearAnimation .3s .3s linear backwards;
+}
+
+.bottomButtonsContainer {
+	justify-self: end;
+	
+	button {
+		width: 125px;
+		margin-left: 20px;
+	}
+}
+
+.fieldsDetailsContainer {
+	justify-self: stretch;
+	align-self: start;
+	max-width: 1200px;
+	padding: 24px 24px 0;
+	border-radius: 7px;
+	margin: 24px;
+	background-color: rgba(black, .8);
+	box-shadow: 0 2px 3px 3px rgba(black, .45);
+	transition: opacity .3s .3s linear;
+	
+	.formContainer {
+		display: grid;
+		grid-template-columns: 1fr 1fr;
+		grid-column-gap: 24px;
+	}
+	
+	.fieldContainer {
+		mat-label {
+			display: inline-block;
+			width: 100px;
+		}
+		mat-form-field {
+			width: calc(100% - 100px);
+			min-width: 220px;
+		}
+	}
+	
+	@media (min-width: 1300px) {
+		width: 1200px;
+		justify-self: center;
+	}
+}
+
+.mainContainer.contentGrid {
+	grid-template-rows: 40px 80px 3px 1fr;
+	
+	.iconsContainer a {
+		text-decoration: none;
+	}
+	
+	.fieldsContainer {
+		width: calc(100% - 50px);
+		max-width: 500px;
+	}
+	
+	.hr {
+		width: calc(100% - 40px);
+		height: 1px;
+		background-color: $myLightBlue;
+	}
+	
+	mat-icon {
+		cursor: pointer;
+	}
+	
+	.fieldsContainer	mat-form-field {
+		width: 100%;
+	}
+	
+	.tableContainer {
+		align-self: start;
+		width: 100%;
+		max-width: 1920px;
+		padding: 50px;
+		animation: appearAnimation .3s .3s linear backwards;
+		
+		table {
+			width: 100%;
+		}
+		
+		.tableRow {
+			th, td {
+				padding-right: 12px;
+				padding-left: 12px;
+			}
+			
+			th:first-of-type, td:first-of-type {
+				padding-left: 12px;
+			}
+			th:last-of-type, td:last-of-type {
+				padding-right: 12px;
+			}
+		}
+		
+		.recycleIcon {
+			font-size: 24px;
+			line-height: 1;
+		}
+		
+		.tableFooter {
+			display: grid;
+			grid-template-columns: 250px 1fr;
+			align-items: stretch;
+			justify-items: stretch;
+		}
+		
+		.checkBoxContainer {
+			display: flex;
+			align-items: center;
+			padding-right: 24px;
+			background-color: $matGrey;
+		}
+		
+		.noTableContent {
+			display: flex;
+			justify-content: center;
+			align-items: center;
+			height: 56px;
+			border-bottom: 1px solid;
+			font-size: 36px;
+			background-color: $matGrey;
+			border-color: rgba(grey, .5);
+		}
+	}
+	
+	&.detailsContainer {
+		grid-template-rows: 40px 1fr 80px;
+	}
+}
+
+.fieldContainer .mat-form-field-suffix > span {
+	position: relative;
+	padding-right: 5px;
+	bottom: 4px;
+	font-size: 24px;
+}
+
+.fadeIn {
+	animation: appearAnimation .3s .3s linear backwards;
+}
+
+.fieldContainerDarker .mat-form-field-appearance-fill .mat-form-field-flex {
+	background: rgba(black, .75)
+}

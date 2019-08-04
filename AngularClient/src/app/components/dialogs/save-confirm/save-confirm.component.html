@@ -1,0 +1,25 @@
+<div class="container">
+	<h2>שים לב!</h2>
+	<p *ngIf="component.isDataValid">פרטים לא נשמרו. האם ברצונך לבצע שמירה?</p>
+	<p *ngIf="!component.isDataValid">פרטים לא נשמרו. להמשיך?</p>
+	<div class="buttonsContainer">
+		<button mat-flat-button
+						type="button"
+						(click)="closeDialog(false)">ביטול</button>
+		<button *ngIf="!component.isDataValid"
+						mat-flat-button
+						color="accent"
+						type="button"
+						(click)="closeDialog(true)">המשך</button>
+		<button *ngIf="component.isDataValid"
+						mat-flat-button
+						color="accent"
+						type="button"
+						(click)="closeDialog(true)">אל תשמור</button>
+		<button *ngIf="component.isDataValid"
+						mat-flat-button
+						color="primary"
+						type="button"
+						(click)="saveData()">שמור</button>
+	</div>
+</div>

@@ -1,0 +1,36 @@
+<div class="mainFlexContainer">
+	<ng-container [ngSwitch]="userType">
+		<ng-container *ngSwitchCase="nonUser">
+			<div class="mainHomeCardContainer"
+					 @fadeInOut>
+				<crd-common-home-page></crd-common-home-page>
+			</div>
+			<div class="mainHomeCardContainer"
+					 @fadeInOut>
+				<crd-home-contact-info></crd-home-contact-info>
+			</div>
+		</ng-container>
+		<ng-container *ngSwitchCase="user">
+			<div class="mainHomeCardContainer"
+					 @fadeInOut>
+				<crd-common-home-page></crd-common-home-page>
+			</div>
+			<div class="mainHomeCardContainer"
+					 @fadeInOut>
+				<crd-home-contact-info></crd-home-contact-info>
+			</div>
+		</ng-container>
+		<ng-container *ngSwitchCase="employee">
+			<div class="mainHomeCardContainer"
+					 @fadeInOut>
+				<crd-employee-home></crd-employee-home>
+			</div>
+		</ng-container>
+		<ng-container *ngSwitchCase="manager">
+			<div class="mainHomeCardContainer"
+					 @fadeInOut>
+				<crd-employee-home></crd-employee-home>
+			</div>
+		</ng-container>
+	</ng-container>
+</div>

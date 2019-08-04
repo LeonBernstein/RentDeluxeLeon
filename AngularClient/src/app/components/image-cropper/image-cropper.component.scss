@@ -1,0 +1,36 @@
+@import '~cropperjs/dist/cropper.css';
+@import 'myColors';
+@import 'fonts';
+
+
+.imgContainer {
+	border: 1px solid $myOffWhite;
+}
+
+img {
+	max-width: 100%;
+}
+
+.buttonsContainer {
+	display: grid;
+	grid-template-columns: 1fr 1fr;
+	justify-items: center;
+	align-content: center;
+	margin-top: 20px;
+}
+
+button {
+	overflow: hidden !important;
+	width: 160px;
+	height: 36px;
+	border: 0;
+	border-radius: 4px;
+	font-size: $m-Font;
+	background-color: $myLightBlue;
+	color: white;
+	transition: background-color .1s;
+	
+	&:active {
+		background-color: rgba($myLightBlue, .7)
+	}
+}

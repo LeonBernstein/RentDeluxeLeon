@@ -1,0 +1,148 @@
+<div class="mainContainer contentGrid detailsContainer">
+	<div class="iconsContainer">
+		<a (click)="getUser()">
+			<span>רענן</span>
+			<mat-icon aria-hidden="false"
+								aria-label="Refresh">autorenew</mat-icon>
+		</a>
+		<a (click)="userDetailsForm?.ngSubmit.emit()">
+			<span>שמור</span>
+			<mat-icon aria-hidden="false"
+								aria-label="Refresh">save</mat-icon>
+		</a>
+	</div>
+	<div class="fieldsDetailsContainer"
+			 [ngStyle]="{'opacity': user ? '1' : '0'}">
+		<form *ngIf="user"
+					class="formContainer"
+					#userDetailsForm="ngForm"
+					(ngSubmit)="updateUser(userDetailsForm)">
+			<div class="fieldContainer">
+				<mat-label>קוד עובד</mat-label>
+				<mat-form-field appearance="outline">
+					<input matInput
+								 [(ngModel)]="user.userId"
+								 #userId="ngModel"
+								 name="userId"
+								 type="number"
+								 spellcheck="false"
+								 disabled
+								 required>
+				</mat-form-field>
+			</div>
+			<div class="fieldContainer">
+				<mat-label>שם משתמש</mat-label>
+				<mat-form-field appearance="outline">
+					<input matInput
+								 [(ngModel)]="user.userName"
+								 #userName="ngModel"
+								 name="userName"
+								 type="text"
+								 spellcheck="false"
+								 disabled
+								 required>
+				</mat-form-field>
+			</div>
+			<div class="fieldContainer">
+				<mat-label>שם פרטי</mat-label>
+				<mat-form-field appearance="outline">
+					<input matInput
+								 [(ngModel)]="user.person.firstName"
+								 #firstName="ngModel"
+								 name="firstName"
+								 type="text"
+								 spellcheck="false"
+								 tabindex="1"
+								 required>
+					<mat-error *ngIf="!firstName.value">השדה אינו יכול להיות ריק</mat-error>
+				</mat-form-field>
+			</div>
+			<div class="fieldContainer">
+				<mat-label>שם משפחה</mat-label>
+				<mat-form-field appearance="outline">
+					<input matInput
+								 [(ngModel)]="user.person.lastName"
+								 #lastName="ngModel"
+								 name="lastName"
+								 type="text"
+								 spellcheck="false"
+								 tabindex="2"
+								 required>
+					<mat-error *ngIf="!lastName.value">השדה אינו יכול להיות ריק</mat-error>
+				</mat-form-field>
+			</div>
+			<div class="fieldContainer">
+				<mat-label>ת.ז</mat-label>
+				<mat-form-field appearance="outline">
+					<input matInput
+								 numericOnly
+								 [(ngModel)]="user.person.idCardNum"
+								 #idCardNum="ngModel"
+								 name="idCardNum"
+								 type="text"
+								 spellcheck="false"
+								 tabindex="3"
+								 minlength="8"
+								 maxlength="9"
+								 [pattern]="numericOnly"
+								 required>
+					<mat-error *ngIf="!!idCardNum.errors?.required">השדה אינו יכול להיות ריק</mat-error>
+					<mat-error *ngIf="idCardNum.value && idCardNum.invalid">המספר שהוזן אינו תקין</mat-error>
+				</mat-form-field>
+			</div>
+			<div class="fieldContainer">
+				<mat-label>תאריך לידה</mat-label>
+				<mat-form-field appearance="outline">
+					<input matInput
+								 [(ngModel)]="user.person.birthday"
+								 #birthDate
+								 [matDatepicker]="birthday"
+								 name="birthday"
+								 tabindex="4"
+								 [min]="minDate"
+								 [max]="maxDate">
+					<mat-datepicker-toggle matSuffix
+																 [for]="birthday"></mat-datepicker-toggle>
+					<mat-datepicker #birthday></mat-datepicker>
+					<mat-error>התאריך שהוזן אינו תקין</mat-error>
+				</mat-form-field>
+			</div>
+			<div class="fieldContainer">
+				<mat-label>מין</mat-label>
+				<mat-form-field appearance="outline">
+					<mat-select [(ngModel)]="user.person.gender"
+											#gender
+											[(value)]="gender.value"
+											name="gender"
+											tabindex="5"
+											required>
+						<mat-option value="m">זכר</mat-option>
+						<mat-option value="f">נקבה</mat-option>
+						<mat-option value="o">אחר</mat-option>
+					</mat-select>
+				</mat-form-field>
+			</div>
+			<div class="fieldContainer">
+					<mat-label>סוג משתמש</mat-label>
+					<mat-form-field appearance="outline">
+						<mat-select [(ngModel)]="user.userRoleId"
+												#userRole
+												[(value)]="userRole.value"
+												name="userRole"
+												tabindex="6"
+												required>
+							<mat-option [value]="2">משתמש רשום</mat-option>
+							<mat-option [value]="3">עובד</mat-option>
+							<mat-option [value]="4">מנהל</mat-option>
+						</mat-select>
+					</mat-form-field>
+				</div>
+		</form>
+	</div>
+	<div class="bottomButtonsContainer">
+		<button mat-flat-button
+						type="button"
+						color="primary"
+						(click)="router.navigateByUrl('employees/usersManagement')">חזור</button>
+	</div>
+</div>

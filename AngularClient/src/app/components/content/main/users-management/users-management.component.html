@@ -1,0 +1,153 @@
+<div class="mainContainer contentGrid">
+	<div class="iconsContainer">
+		<a (click)="getUsers()">
+			<span>רענן</span>
+			<mat-icon aria-hidden="false"
+								aria-label="Refresh">autorenew</mat-icon>
+		</a>
+	</div>
+	<div class="fieldsContainer">
+		<mat-form-field appearance="outline"
+										class="blackBackground">
+			<mat-label>חיפוש מהיר</mat-label>
+			<input matInput
+						 [(ngModel)]="fastSearch"
+						 (keyup)="applyFilters()"
+						 spellcheck="false"
+						 placeholder="חפש...">
+			<mat-icon matSuffix>search</mat-icon>
+		</mat-form-field>
+	</div>
+	<div class="hr"></div>
+	<div class="tableContainer"
+			 *ngIf="usersDataSource">
+		<div class="mat-elevation-z8">
+			<table mat-table
+						 matSort
+						 [dataSource]="usersDataSource">
+				<ng-container matColumnDef="index">
+					<th mat-header-cell
+							*matHeaderCellDef>#</th>
+					<td mat-cell
+							*matCellDef="let i = index">{{i + 1}}</td>
+				</ng-container>
+				<ng-container matColumnDef="userId">
+					<th mat-header-cell
+							mat-sort-header
+							*matHeaderCellDef>קוד</th>
+					<td mat-cell
+							*matCellDef="let u">{{u.userId}}</td>
+				</ng-container>
+				<ng-container matColumnDef="isActive">
+					<th mat-header-cell
+							mat-sort-header
+							*matHeaderCellDef>פעיל</th>
+					<td mat-cell
+							class="greenText"
+							*matCellDef="let u">{{u.isActive ? '&#10003;' : ''}}</td>
+				</ng-container>
+				<ng-container matColumnDef="userName">
+					<th mat-header-cell
+							mat-sort-header
+							*matHeaderCellDef>שם משתמש</th>
+					<td mat-cell
+							*matCellDef="let u">{{u.userName}}</td>
+				</ng-container>
+				<ng-container matColumnDef="userRole.name">
+					<th mat-header-cell
+							mat-sort-header
+							*matHeaderCellDef>סוג משתמש</th>
+					<td mat-cell
+							*matCellDef="let u">{{u.userRole.name}}</td>
+				</ng-container>
+				<ng-container matColumnDef="person.firstName">
+					<th mat-header-cell
+							mat-sort-header
+							*matHeaderCellDef>שם פרטי</th>
+					<td mat-cell
+							*matCellDef="let u">{{u.person.firstName}}</td>
+				</ng-container>
+				<ng-container matColumnDef="person.lastName">
+					<th mat-header-cell
+							mat-sort-header
+							*matHeaderCellDef>שם משפחה</th>
+					<td mat-cell
+							*matCellDef="let u">{{u.person.lastName}}</td>
+				</ng-container>
+				<ng-container matColumnDef="person.idCardNum">
+					<th mat-header-cell
+							mat-sort-header
+							*matHeaderCellDef>ת.ז</th>
+					<td mat-cell
+							*matCellDef="let u">{{u.person.idCardNum}}</td>
+				</ng-container>
+				<ng-container matColumnDef="person.birthday">
+					<th mat-header-cell
+							mat-sort-header
+							*matHeaderCellDef>תאריך לידה</th>
+					<td mat-cell
+							*matCellDef="let u">{{u.person.birthday | date : 'dd/MM/yyyy'}}</td>
+				</ng-container>
+				<ng-container matColumnDef="person.gender">
+					<th mat-header-cell
+							mat-sort-header
+							*matHeaderCellDef>מין</th>
+					<td mat-cell
+							*matCellDef="let u">{{u.person.gender | genderHebrew}}</td>
+				</ng-container>
+				<ng-container matColumnDef="edit">
+					<th mat-header-cell
+							*matHeaderCellDef>ערוך</th>
+					<td mat-cell
+							*matCellDef="let u">
+						<a *ngIf="u.isActive"
+							 [routerLink]="u.userId">
+							<mat-icon aria-hidden="false"
+												aria-label="Refresh">edit</mat-icon>
+						</a>
+					</td>
+				</ng-container>
+				<ng-container matColumnDef="flipActive">
+					<th mat-header-cell
+							*matHeaderCellDef>מחק/ שחזר</th>
+					<td mat-cell
+							style="padding-right: 24px;"
+							*matCellDef="let u">
+						<a *ngIf="u.isActive; else recycleIcon"
+							 (click)="deleteUser(u.userId)">
+							<mat-icon aria-hidden="false"
+												aria-label="Refresh">delete</mat-icon>
+						</a>
+						<ng-template #recycleIcon>
+							<a (click)="restoreUser(u.userId)"
+								 class="recycleIcon">&#9850;</a>
+						</ng-template>
+					</td>
+				</ng-container>
+				<tr mat-header-row
+						class="tableRow"
+						*matHeaderRowDef="usersColumns"></tr>
+				<tr mat-row
+						class="tableRow"
+						[ngClass]="{'fadedText': !row.isActive}"
+						*matRowDef="let row; columns: usersColumns;"></tr>
+			</table>
+			<div class="noTableContent"
+					 *ngIf="usersDataSource.filteredData.length == 0">
+				<div>
+					<span>אין נתונים להצגה</span>
+				</div>
+			</div>
+			<div class="tableFooter">
+				<div class="checkBoxContainer">
+					<mat-checkbox [checked]="true"
+												(change)="applyFilters()"
+												[(ngModel)]="showOnlyActive">הצג רק פעילים</mat-checkbox>
+				</div>
+				<mat-paginator [pageSize]="10"
+											 [pageSizeOptions]="[10, 15, 20]"
+											 showFirstLastButtons></mat-paginator>
+			</div>
+		</div>
+	</div>
+</div>

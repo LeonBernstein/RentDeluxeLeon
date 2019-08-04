@@ -1,0 +1,162 @@
+<div class="mainContainer contentGrid detailsContainer">
+	<div class="iconsContainer">
+		<a *ngIf="model?.orderId"
+			 (click)="getData()">
+			<span>רענן</span>
+			<mat-icon aria-hidden="false"
+								aria-label="Refresh">autorenew</mat-icon>
+		</a>
+		<a (click)="orderForm?.ngSubmit.emit()">
+			<span>שמור</span>
+			<mat-icon aria-hidden="false"
+								aria-label="Refresh">save</mat-icon>
+		</a>
+	</div>
+	<div class="fieldsDetailsContainer"
+			 [ngStyle]="{'opacity': model ? '1' : '0'}">
+		<form *ngIf="model"
+					class="formContainer"
+					#orderForm="ngForm"
+					(ngSubmit)="saveData()">
+			<div class="fieldContainer">
+				<mat-label>קוד</mat-label>
+				<mat-form-field appearance="outline">
+					<input matInput
+								 [(ngModel)]="model.orderId"
+								 #vehicleId="ngModel"
+								 name="orderId"
+								 type="number"
+								 spellcheck="false"
+								 disabled
+								 required>
+				</mat-form-field>
+			</div>
+			<div class="fieldContainer">
+				<mat-label>תאריך התחלה</mat-label>
+				<mat-form-field appearance="outline">
+					<input matInput
+								 [(ngModel)]="model.startDate"
+								 #startDateDatePicker
+								 [matDatepicker]="startDate"
+								 name="startDate"
+								 tabindex="1"
+								 [min]="minDate"
+								 required>
+					<mat-datepicker-toggle matSuffix
+																 [for]="startDate"></mat-datepicker-toggle>
+					<mat-datepicker #startDate></mat-datepicker>
+					<mat-error>התאריך שהוזן אינו תקין</mat-error>
+				</mat-form-field>
+			</div>
+			<div class="fieldContainer">
+				<mat-label>תאריך החזרה</mat-label>
+				<mat-form-field appearance="outline">
+					<input matInput
+								 [(ngModel)]="model.endDate"
+								 #endDateDatePicker
+								 [matDatepicker]="endDate"
+								 name="endDate"
+								 tabindex="2"
+								 [min]="minDate"
+								 required>
+					<mat-datepicker-toggle matSuffix
+																 [for]="endDate"></mat-datepicker-toggle>
+					<mat-datepicker #endDate></mat-datepicker>
+					<mat-error>התאריך שהוזן אינו תקין</mat-error>
+				</mat-form-field>
+			</div>
+			<div class="fieldContainer">
+				<mat-label>תאריך החזרה בפועל</mat-label>
+				<mat-form-field appearance="outline">
+					<input matInput
+								 [(ngModel)]="model.actualEndDate"
+								 #actualEndDateDatePicker
+								 [matDatepicker]="actualEndDate"
+								 name="actualEndDate"
+								 tabindex="3"
+								 [min]="minDate">
+					<mat-datepicker-toggle matSuffix
+																 [for]="actualEndDate"></mat-datepicker-toggle>
+					<mat-datepicker #actualEndDate></mat-datepicker>
+					<mat-error>התאריך שהוזן אינו תקין</mat-error>
+				</mat-form-field>
+			</div>
+			<div class="fieldContainer">
+				<mat-label>לקוח</mat-label>
+				<mat-form-field appearance="outline">
+					<mat-select [(ngModel)]="model.userId"
+											#userId="ngModel"
+											name="userId"
+											tabindex="4"
+											required>
+						<mat-option *ngFor="let user of (users | sort : ['person.lastName', 'person.firstName'])"
+												[ngStyle]="{'color': user.isActive ? 'white' : 'grey'}"
+												[value]="user.userId">
+							{{user.person.firstName + ' ' + user.person.lastName}}
+						</mat-option>
+					</mat-select>
+					<mat-error *ngIf="!userId.value">השדה אינו יכול להיות ריק</mat-error>
+				</mat-form-field>
+			</div>
+			<div class="fieldContainer">
+				<mat-label>מספר רכב</mat-label>
+				<mat-form-field appearance="outline">
+					<mat-select [(ngModel)]="model.vehicleId"
+											#vehicleId="ngModel"
+											name="vehicleId"
+											tabindex="5"
+											required>
+						<mat-option *ngFor="let car of (cars | sort : 'vehicleNumber')"
+												[ngStyle]="{'color': car.isActive ? 'white' : 'grey'}"
+												[value]="car.vehicleId">
+							{{car.vehicleNumber | carNumber}}
+						</mat-option>
+					</mat-select>
+					<mat-error *ngIf="!vehicleId.value">השדה אינו יכול להיות ריק</mat-error>
+				</mat-form-field>
+			</div>
+			<div class="fieldContainer">
+				<mat-label>מחיר</mat-label>
+				<mat-form-field appearance="outline">
+					<input matInput
+								 [ngModel]="model.price"
+								 (ngModelChange)="setPrice(price)"
+								 #price="ngModel"
+								 name="price"
+								 type="text"
+								 spellcheck="false"
+								 placeholder="0.00"
+								 tabindex="6"
+								 pattern="^\d{1,16}(\.\d{1,2})?$"
+								 required>
+					<span matSuffix>&#8362;</span>
+					<mat-error *ngIf="!price.value">השדה אינו יכול להיות ריק</mat-error>
+					<mat-error *ngIf="price.value && price?.errors?.pattern">מספר לא תקין</mat-error>
+				</mat-form-field>
+			</div>
+			<div class="fieldContainer">
+				<mat-label>מחיר סופי</mat-label>
+				<mat-form-field appearance="outline">
+					<input matInput
+								 [ngModel]="model.totalPrice"
+								 (ngModelChange)="setPrice(totalPrice)"
+								 #totalPrice="ngModel"
+								 name="totalPrice"
+								 type="text"
+								 spellcheck="false"
+								 placeholder="0.00"
+								 tabindex="6"
+								 pattern="^\d{1,16}(\.\d{1,2})?$">
+					<span matSuffix>&#8362;</span>
+					<mat-error *ngIf="price.value && price?.errors?.pattern">מספר לא תקין</mat-error>
+				</mat-form-field>
+			</div>
+		</form>
+	</div>
+	<div class="bottomButtonsContainer">
+		<button mat-flat-button
+						type="button"
+						color="primary"
+						(click)="router.navigateByUrl('employees/ordersList')">חזור</button>
+	</div>
+</div>

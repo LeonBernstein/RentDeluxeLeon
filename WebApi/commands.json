@@ -1,0 +1,9 @@
+{
+  "commands": {
+    "CompileAngularToWebApi": {
+      "fileName": "powershell.exe",
+      "workingDirectory": ".",
+      "arguments": "-ExecutionPolicy Bypass -NonInteractive -File CompileAngularToWebApi.ps1"
+    }
+  }
+}

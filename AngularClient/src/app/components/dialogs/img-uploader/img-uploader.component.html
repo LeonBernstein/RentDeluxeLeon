@@ -1,0 +1,28 @@
+<div class="popupContainer">
+	<div class="closeDialog">
+		<a (click)="closeThisDialog()">&#9747;</a>
+	</div>
+	<h3>העלאת תמונה</h3>
+	<input hidden
+				 type="file"
+				 #fileInput
+				 (change)="handleImage($event)">
+	<div class="popupContentContainer">
+		<button mat-flat-button
+						type="button"
+						color="primary"
+						(click)="fileInput.click()">{{file ? 'שנה תמונה' : 'בחר תמונה'}}</button>
+		<p>מקסימום גודל קובץ : 2 מגה</p>
+		<div class="fileError">
+			<small *ngIf="isSizeError">חריגה בגודל קובץ</small>
+		</div>
+		<div class="fileError">
+			<small *ngIf="isTypeError">סוג קובץ לא נתמך</small>
+		</div>
+		<crd-image-cropper *ngIf="(imgType == avatarImage || imgType == carsAvatar) && file"
+											 [file]="file"
+											 [imgType]="imgType"
+											 (close)="closeThisDialog()"
+											 (newImage)="handleNewImage($event)"></crd-image-cropper>
+	</div>
+</div>

@@ -1,0 +1,19 @@
+@import 'myColors';
+@import 'fonts';
+
+nav {
+	background-color: rgba(0, 0, 0, .5);
+}
+
+a {
+	font-size: $m-Font;
+	color: $myOffWhite;
+}
+
+.mat-tab-label-active {
+	opacity: 1;
+}
+
+::ng-deep #mainTabNavBar .mat-ripple-element {
+	background-color: rgba(255, 255, 255, .25);
+}

@@ -1,0 +1,173 @@
+<div class="mainContainer contentGrid detailsContainer">
+	<div class="iconsContainer">
+		<a *ngIf="model?.vehicleId"
+			 (click)="getData()">
+			<span>רענן</span>
+			<mat-icon aria-hidden="false"
+								aria-label="Refresh">autorenew</mat-icon>
+		</a>
+		<a (click)="carForm?.ngSubmit.emit()">
+			<span>שמור</span>
+			<mat-icon aria-hidden="false"
+								aria-label="Refresh">save</mat-icon>
+		</a>
+	</div>
+	<div class="fieldsDetailsContainer"
+			 [ngStyle]="{'opacity': model ? '1' : '0'}">
+		<form *ngIf="model"
+					class="formContainer"
+					#carForm="ngForm"
+					(ngSubmit)="saveData()">
+			<div class="fieldContainer">
+				<mat-label>קוד</mat-label>
+				<mat-form-field appearance="outline">
+					<input matInput
+								 [(ngModel)]="model.vehicleId"
+								 #vehicleId="ngModel"
+								 name="vehicleId"
+								 type="number"
+								 spellcheck="false"
+								 disabled
+								 required>
+				</mat-form-field>
+			</div>
+			<div class="fieldContainer">
+				<mat-label>מספר רכב</mat-label>
+				<mat-form-field appearance="outline">
+					<input matInput
+								 [(ngModel)]="model.vehicleNumber"
+								 #vehicleNumber="ngModel"
+								 numericOnly
+								 name="vehicleNumber"
+								 type="text"
+								 spellcheck="false"
+								 tabindex="1"
+								 maxlength="8"
+								 required>
+					<mat-error *ngIf="!vehicleNumber.value">השדה אינו יכול להיות ריק</mat-error>
+				</mat-form-field>
+			</div>
+			<div class="fieldContainer">
+				<mat-label>תאריך יצור</mat-label>
+				<mat-form-field appearance="outline">
+					<input matInput
+								 [(ngModel)]="model.manufactureDate"
+								 #manufactureDatePicker
+								 [matDatepicker]="manufactureDate"
+								 name="manufactureDate"
+								 tabindex="2"
+								 [min]="minDate"
+								 [max]="maxDate"
+								 required>
+					<mat-datepicker-toggle matSuffix
+																 [for]="manufactureDate"></mat-datepicker-toggle>
+					<mat-datepicker #manufactureDate></mat-datepicker>
+					<mat-error>התאריך שהוזן אינו תקין</mat-error>
+				</mat-form-field>
+			</div>
+			<div class="fieldContainer">
+				<mat-label>מד אוץ</mat-label>
+				<mat-form-field appearance="outline">
+					<input matInput
+								 [(ngModel)]="model.mileage"
+								 #mileage="ngModel"
+								 name="mileage"
+								 type="number"
+								 tabindex="3"
+								 numericOnly
+								 required>
+					<mat-error *ngIf="!mileage.value">השדה אינו יכול להיות ריק</mat-error>
+				</mat-form-field>
+			</div>
+			<div class="fieldContainer">
+				<mat-label>דגם</mat-label>
+				<mat-form-field appearance="outline">
+					<mat-select [(ngModel)]="model.modelId"
+											#modelId="ngModel"
+											name="modelId"
+											tabindex="4"
+											required>
+						<mat-option *ngFor="let carModel of (carModels | sort : ['name', 'manufacturer.name'])"
+												[ngStyle]="{'color': carModel.isActive ? 'white' : 'grey'}"
+												[value]="carModel.vehicleModelId">
+							{{carModel.name + ' [' + carModel.manufacturer.name + ']'}}
+						</mat-option>
+					</mat-select>
+					<mat-error *ngIf="!modelId.value">השדה אינו יכול להיות ריק</mat-error>
+				</mat-form-field>
+			</div>
+			<div class="fieldContainer">
+				<mat-label>דרגה</mat-label>
+				<mat-form-field appearance="outline">
+					<mat-select [(ngModel)]="model.carClassId"
+											#carClassId="ngModel"
+											name="carClassId"
+											tabindex="5"
+											required>
+						<mat-option *ngFor="let carClass of (carClasses | sort : 'name')"
+												[ngStyle]="{'color': carClass.isActive ? 'white' : 'grey'}"
+												[value]="carClass.carClassId">
+							{{carClass.name}}
+						</mat-option>
+					</mat-select>
+					<mat-error *ngIf="!carClassId.value">השדה אינו יכול להיות ריק</mat-error>
+				</mat-form-field>
+			</div>
+			<div class="fieldContainer">
+				<mat-label>גיר</mat-label>
+				<mat-form-field appearance="outline">
+					<mat-select [(ngModel)]="model.gearTypeId"
+											#gearTypeId="ngModel"
+											name="gearTypeId"
+											tabindex="6"
+											required>
+						<mat-option *ngFor="let gearType of (gearTypes | sort : 'name')"
+												[ngStyle]="{'color': gearType.isActive ? 'white' : 'grey'}"
+												[value]="gearType.gearTypeId">
+							{{gearType.name}}
+						</mat-option>
+					</mat-select>
+					<mat-error *ngIf="!gearTypeId.value">השדה אינו יכול להיות ריק</mat-error>
+				</mat-form-field>
+			</div>
+			<div class="fieldContainer">
+				<mat-label>סניף</mat-label>
+				<mat-form-field appearance="outline">
+					<mat-select [(ngModel)]="model.atBranchId"
+											#atBranchId="ngModel"
+											name="atBranchId"
+											tabindex="7"
+											required>
+						<mat-option *ngFor="let branch of (branches | sort : 'name')"
+												[ngStyle]="{'color': branch.isActive ? 'white' : 'grey'}"
+												[value]="branch.branchId">
+							{{branch.name}}
+						</mat-option>
+					</mat-select>
+					<mat-error *ngIf="!atBranchId.value">השדה אינו יכול להיות ריק</mat-error>
+				</mat-form-field>
+			</div>
+			<div class="fieldContainer checkBoxContainer">
+				<mat-checkbox [(ngModel)]="model.isAvailable"
+											name="isAvailable">זמין</mat-checkbox>
+			</div>
+			<div class="fieldContainer checkBoxContainer">
+				<mat-checkbox [(ngModel)]="model.isProper"
+											name="isProper">תקין</mat-checkbox>
+			</div>
+		</form>
+		<div class="imContainer"
+				 *ngIf="model && isExistingCar">
+			<a (click)="openImgUpload()">
+				<img [src]="model.picturePath ? pictureUrl : carAvatar.src"
+						 [alt]="model.picturePath ? 'CarAvatar' : carAvatar.alt">
+			</a>
+		</div>
+	</div>
+	<div class="bottomButtonsContainer">
+		<button mat-flat-button
+						type="button"
+						color="primary"
+						(click)="router.navigateByUrl('employees/carsManagement/carsIndex')">חזור</button>
+	</div>
+</div>

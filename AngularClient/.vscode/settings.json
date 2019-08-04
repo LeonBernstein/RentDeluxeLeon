@@ -1,0 +1,81 @@
+{
+	//Angular
+	"angular2-files.menu.class": false,
+	"angular2-files.menu.enum": false,
+	"angular2-files.menu.interface": false,
+	"angular2-files.menu.route": false,
+	//Bookmarks
+	"bookmarks.saveBookmarksInProject": false,
+	// VS Icons
+	"vsicons.presets.angular": true,
+	// HTML-SCSS
+	"liveSassCompile.settings.formats": [
+		{
+			"format": "compressed",
+			"extensionName": ".min.css",
+			"savePath": "/src/assets/css/"
+		},
+		{
+			"format": "expanded",
+			"extensionName": ".css",
+			"savePath": "/src/assets/css/"
+		},
+	],
+	"scss.scannerExclude": [
+		"**/.git",
+		"**/node_modules",
+		"**/bower_components",
+		"./src/app/scss",
+	],
+	"htmlScss.globalStyles": [
+		"./src/app/scss/globalAbstracts/_index.scss"
+	],
+	"htmlScss.isAngularProject": true,
+	"html-css-class-completion.excludeGlobPattern": "**/*.{scss,css,html}",
+	"liveSassCompile.settings.autoprefix": [
+    "> 1%",
+    "last 2 versions"
+  ],
+	"liveSassCompile.settings.excludeList": [
+		"**/node_modules/**",
+		".vscode/**",
+		"./src/app/components/**"
+	],
+	"liveSassCompile.settings.includeItems": [
+		"./src/app/scss/independent/loadingScreen/loadingScreen.scss"
+	],
+	// Live Server
+	"liveServer.settings.port": 6613,
+	"liveServer.settings.root": "/dist/AngularClient",
+	"liveServer.settings.file": "index.html",
+	"liveServer.settings.https": {
+		"enable": true,
+		"cert": "C:\\SitesDevelopment\\Study\\RentDeluxe_Leon\\AngularClient\\ssl\\liveServer\\localhost.crt",
+		"key": "C:\\SitesDevelopment\\Study\\RentDeluxe_Leon\\AngularClient\\ssl\\liveServer\\localhost.key",
+		"passphrase": "123456"
+	},
+	// Path intellisense
+	"path-intellisense.mappings": {
+		"/": "${workspaceRoot}",
+		"src": "${workspaceRoot}/src",
+		"assets": "${workspaceRoot}/src/assets",
+	},
+	// Tasks
+	"quicktask.defaultTasks": [
+		"ng serve --open"
+	],
+	// File Exclude
+	"files.exclude": {
+		"**/.git": true,
+		"**/.svn": true,
+		"**/.hg": true,
+		"**/CVS": true,
+		"**/.DS_Store": true,
+		"**/*.spec.ts": true
+	},
+	// Workbench
+	"workbench.iconTheme": "vscode-icons",
+	"cSpell.words": [
+		"retu"
+	],
+}

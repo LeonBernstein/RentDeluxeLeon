@@ -1,0 +1,11 @@
+
+.blackBackground {
+	.mat-form-field-outline {
+		transition: background-color .15s ease-out;
+		background-color: rgba(black, .75)
+	}
+	
+	&.mat-focused .mat-form-field-outline {
+		background-color: rgba(black, .85)
+	}
+}

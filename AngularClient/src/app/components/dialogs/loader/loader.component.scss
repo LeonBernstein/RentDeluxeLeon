@@ -1,0 +1,48 @@
+@import 'myColors';
+
+.loaderWrapper {
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	height: 100%;
+	width: 100%;
+}
+
+.cubeContainer {
+	z-index: 2002;
+	width: 60px;
+	height: 60px;
+	
+	> .cube {
+		z-index: 2003;
+		float: left;
+		width: 33%;
+		height: 33%;
+		background-color: $mySpecialRed;
+		animation: cubeLoader 1.3s infinite ease-in-out;
+		
+		@for $i from 1 through 9 {
+			&:nth-child(#{$i}) {
+				$n: 0;
+				@if ($i <= 3) {
+					$n: $i + 1;
+				} @else if ($i <= 6) {
+					$n: $i - 3;
+				}
+				animation-delay: #{$n / 10}s;
+			}
+		}
+		
+		@keyframes cubeLoader {
+			0% {
+				transform: scale3d(1, 1, 1);
+			} 35% {
+				transform: scale3d(0, 0, 1);
+			} 70% {
+				transform: scale3d(1, 1, 1);
+			} 100% {
+				transform: scale3d(1, 1, 1);
+			}
+		}
+	}
+}

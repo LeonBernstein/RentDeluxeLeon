@@ -1,0 +1,14 @@
+<nav mat-tab-nav-bar
+		 #matTabNavBar
+		 id="mainTabNavBar"
+		 [ngStyle]="{'max-width': userChangeTrigger ? '100vw' : 'unset'}">
+	<a mat-tab-link
+		 @fadeInOut
+		 *ngFor="let link of (routerLinks | linksFilter : userRole)"
+		 [routerLink]="link.path"
+		 routerLinkActive
+		 #rla="routerLinkActive"
+		 [active]="rla.isActive">
+		{{link.label}}
+	</a>
+</nav>

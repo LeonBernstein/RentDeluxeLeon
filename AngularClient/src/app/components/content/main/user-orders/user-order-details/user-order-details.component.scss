@@ -1,0 +1,55 @@
+@import 'fonts';
+
+.fieldsDetailsContainer {
+	display: grid;
+	grid-template-rows: 250px auto auto;
+	align-items: center;
+	padding: 24px;
+}
+
+.imgContainer {
+	height: 100%;
+	align-self: center;
+	justify-self: center;
+}
+
+img {
+	max-height: 100%;
+	max-width: 100%;
+	border-radius: 50%;
+}
+
+.row {
+	display: grid;
+	grid-template-columns: 200px 200px;
+	padding: 8px 0;
+	font-size: $xl-Font;
+	max-width: 400px;
+	margin: auto;
+	
+	
+	span:nth-child(2) {
+		text-overflow: ellipsis;
+		overflow: hidden;
+		white-space: nowrap;
+	}
+}
+
+.orderDetailsField {
+	display: grid;
+	grid-template-columns: 200px 200px;
+	padding: 8px 0;
+	max-width: 400px;
+	margin: auto;
+	height: 65px;
+	align-items: center;
+	
+	mat-form-field {
+		max-width: 175px;
+	}
+}
+
+
+.fieldsDetailsContainer > div {
+	padding: 15px 0;
+}

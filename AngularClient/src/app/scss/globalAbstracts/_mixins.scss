@@ -1,0 +1,157 @@
+
+@mixin genQueries($queries) {
+	@if length($queries) == 0 {
+		@content;
+		
+	} @else {
+		
+		
+		@if type-of($queries) == string {
+			@media #{$queries} {
+				@content;
+			}
+		} @else {
+			$first-key: nth(map-keys($queries), 1);
+			
+			@media ($first-key: map-get($queries, $first-key)) {
+				$queries: map-remove($queries, $first-key);
+				
+				@include genQueries($queries) {
+					@content;
+				}
+			}
+		}
+	}
+}
+
+@mixin media($breakpoint) {
+	$breakpoints: (
+		'hover': (pointer: fine),
+		'phone': (max-width: 650px),
+		// 'min-W225&H400': (min-width: 225px, min-height: 400px),
+		// 'max-W1366-H500': #{(max-width: 1366px), (max-height: 500px)},
+		// 'max-W700-H700': #{(max-width: 700px), (max-height: 700px)},
+		// 'max-W450-H600': #{(max-width: 450px), (max-height: 600px)},
+		// 'max-W400-H550': #{(max-width: 400px), (max-height: 550px)},
+		// 'min-W400': (min-width: 400px),
+		// 'max-W350': (max-width: 350px),
+		// 'max-W400': (max-width: 400px),
+		// 'max-W450': (max-width: 450px),
+		// 'max-W550': (max-width: 550px),
+		// 'max-H400': (max-height: 400px),
+		// 'max-H450': (max-height: 450px),
+		// 'max-H500': (max-height: 500px),
+		// 'max-H550': (max-height: 550px),
+		// 'max-H600': (max-height: 600px),
+	);
+	
+	$queries: map-get($breakpoints, $breakpoint);
+
+	@if not $queries {
+		@error "No value could be retrieved from `#{$breakpoint}`. "
+		+ "Please make sure it is defined in `$breakpoints` map.";
+	}
+
+	@include genQueries($queries) {
+		@content;
+	}
+}
+
+@mixin scrollBar($color) {
+	
+	$scrollDimensions: 12px;
+	$buttonsHeight: 20px;
+	
+	$regularBlue: rgba($color, .45);
+	$hoverBlue: rgba($color, .65);
+	$actionBlue: rgba($color, .95);
+	$railTrackBlue: rgba($color, .2);
+	
+	
+	&::-webkit-scrollbar {
+		width: $scrollDimensions;
+		height: $scrollDimensions;
+	}
+	&::-webkit-scrollbar-corner {
+		border-radius: $scrollDimensions;
+		background-color: $regularBlue;
+	}
+	&::-webkit-scrollbar-thumb {
+		border-radius: $scrollDimensions;
+		background-color: $regularBlue;
+	}
+	&::-webkit-scrollbar-thumb:active {
+		border-radius: $scrollDimensions;
+		background-color: $actionBlue;
+	}
+	@include media('hover') {
+		&::-webkit-scrollbar-thumb:hover {
+			border-radius: $scrollDimensions;
+			background-color: $hoverBlue;
+		}
+		&::-webkit-scrollbar-thumb:hover:active {
+			border-radius: $scrollDimensions;
+			background-color: $actionBlue;
+		}
+		&::-webkit-scrollbar-button:horizontal:start:single-button {
+			height: $buttonsHeight;
+			border-radius: $scrollDimensions;
+			background-color: $regularBlue;
+		}
+		&::-webkit-scrollbar-button:horizontal:start:single-button:hover {
+			height: $buttonsHeight;
+			border-radius: $scrollDimensions;
+			background-color: $hoverBlue;
+		}
+		&::-webkit-scrollbar-button:horizontal:start:single-button:hover:active {
+			height: $buttonsHeight;
+			border-radius: $scrollDimensions;
+			background-color: $actionBlue;
+		}
+		&::-webkit-scrollbar-button:horizontal:end:single-button {
+			height: $buttonsHeight;
+			border-radius: $scrollDimensions;
+			background-color: $regularBlue;
+		}
+		&::-webkit-scrollbar-button:horizontal:end:single-button:hover {
+			height: $buttonsHeight;
+			border-radius: $scrollDimensions;
+			background-color: $hoverBlue;
+		}
+		&::-webkit-scrollbar-button:horizontal:end:single-button:hover:active {
+			height: $buttonsHeight;
+			border-radius: $scrollDimensions;
+			background-color: $actionBlue;
+		}
+		&::-webkit-scrollbar-button:vertical:start:single-button {
+			height: $buttonsHeight;
+			border-radius: $scrollDimensions;
+			background-color: $regularBlue;
+		}
+		&::-webkit-scrollbar-button:vertical:start:single-button:hover {
+			height: $buttonsHeight;
+			border-radius: $scrollDimensions;
+			background-color: $hoverBlue;
+		}
+		&::-webkit-scrollbar-button:vertical:start:single-button:hover:active {
+			height: $buttonsHeight;
+			border-radius: $scrollDimensions;
+			background-color: $actionBlue;
+		}
+		&::-webkit-scrollbar-button:vertical:end:single-button {
+			height: $buttonsHeight;
+			border-radius: $scrollDimensions;
+			background-color: $regularBlue;
+		}
+		&::-webkit-scrollbar-button:vertical:end:single-button:hover {
+			height: $buttonsHeight;
+			border-radius: $scrollDimensions;
+			background-color: $hoverBlue;
+		}
+		&::-webkit-scrollbar-button:vertical:end:single-button:hover:active {
+			height: $buttonsHeight;
+			border-radius: $scrollDimensions;
+			background-color: $actionBlue;
+		}
+	}
+}

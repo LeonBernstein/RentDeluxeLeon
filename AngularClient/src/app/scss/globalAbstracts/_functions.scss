@@ -1,0 +1,11 @@
+@function randomInt($min, $max) {
+	$rand: random();
+	$randomNum: $min + floor($rand * (($max - $min) + 1));
+
+	@return $randomNum;
+}
+
+@function randomDec($min, $max) {
+	$randomNum: (randomInt($min * 100, $max * 100)) / 100;
+	@return $randomNum;
+}

@@ -1,0 +1,28 @@
+
+.checkBoxContainer {
+	display: flex;
+	align-items: center;
+	height: 82px;
+	
+	mat-checkbox {
+		margin-bottom: 20px;
+	}
+}
+
+.imContainer {
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	height: 250px;
+	padding: 15px 15px 24px;
+	
+	a {
+		height: 100%;
+		max-width: 100%;
+	}
+	img {
+		max-height: 100%;
+		max-width: 100%;
+		border-radius: 50%;
+	}
+}

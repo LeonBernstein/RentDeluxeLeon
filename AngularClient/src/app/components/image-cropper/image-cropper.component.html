@@ -1,0 +1,13 @@
+<div class="imgContainer"
+		 [hidden]="!imgSrc">
+	<img #img
+			 [hidden]="!imgSrc"
+			 [attr.src]="imgSrc ? imgSrc : null">
+</div>
+<div class="buttonsContainer"
+		 *ngIf="cropper">
+	<button type="button"
+					(click)="emitNewImage()">העלה</button>
+	<button type="button"
+					(click)="closeDialog()">ביטול</button>
+</div>

@@ -1,0 +1,13 @@
+<nav mat-tab-nav-bar
+		 #matCarsNavBar
+		 id="carsNavBar">
+	<a mat-tab-link
+		 @fadeInOut
+		 *ngFor="let link of (routerLinks | linksFilter : userRole : carsOutlet)"
+		 [routerLink]="link.path"
+		 routerLinkActive
+		 #rlaC="routerLinkActive"
+		 [active]="rlaC.isActive">
+		{{link.label}}
+	</a>
+</nav>

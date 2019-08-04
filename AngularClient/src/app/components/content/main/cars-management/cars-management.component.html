@@ -1,0 +1,7 @@
+<div class="mainContainer">
+	<crd-cars-nav></crd-cars-nav>
+	<div class="outletContainer"
+			 [@routerFade]="getStates(outlet)">
+		<router-outlet #outlet="outlet"></router-outlet>
+	</div>
+</div>

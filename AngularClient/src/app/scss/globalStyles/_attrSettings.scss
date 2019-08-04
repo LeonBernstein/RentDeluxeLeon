@@ -1,0 +1,13 @@
+input[type="checkbox"] {
+	@extend %no-user-select;
+	
+	display: none;
+}
+
+input[type="text"] + label {
+	@extend %no-user-select;
+}
+
+input[type="password"] + label {
+	@extend %no-user-select;
+}

@@ -1,0 +1,60 @@
+<span class="scrollMenu"
+			@fadeInOut
+			*ngIf="isShowMenu">
+	<button mat-icon-button
+					[matMenuTriggerFor]="menu"
+					aria-label="Nav menu">
+		<mat-icon>more_vert</mat-icon>
+	</button>
+	<mat-menu #menu="matMenu">
+		<div class="avatarImgWrapper menuItem">
+			<span class="userName">שלום {{userName}}</span>
+			<a class="avatarImgHref"
+				 (click)="openImgUpload()"
+				 [ngStyle]="{'cursor': isLoggedIn ? 'pointer' : 'unset'}">
+				<img [src]="avatar.src"
+						 [alt]="avatar.alt"
+						 #avatarImg>
+			</a>
+			<span>&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;</span>
+			<a class="bluishText"
+				 (click)="handleLoginState()">{{isLoggedIn ? 'התנתק' : 'התחבר'}}</a>
+		</div>
+		<button mat-menu-item
+						*ngFor="let link of (routerLinks | linksFilter : userRole : mainOutlet)"
+						(click)="router.navigateByUrl(link.path)">{{link.label}}</button>
+		<button mat-menu-item
+						*ngIf="userRole == manager"
+						[matMenuTriggerFor]="carsRoutesMenu">ניהול רכבים</button>
+		<mat-menu #carsRoutesMenu="matMenu">
+			<button mat-menu-item
+							style="width: 165px;"
+							*ngFor="let link of (routerLinks | linksFilter : userRole : carsOutlet)"
+							(click)="router.navigateByUrl('employees/carsManagement/' + link.path)">{{link.label}}</button>
+		</mat-menu>
+	</mat-menu>
+</span>
+<header>
+	<div id="userHeader"
+			 class="avatarImgWrapper">
+		<span>שלום {{userName}}</span>
+		<a class="avatarImgHref"
+			 (click)="openImgUpload()"
+			 [ngStyle]="{'cursor': isLoggedIn ? 'pointer' : 'unset'}">
+			<img [src]="avatar.src"
+					 [alt]="avatar.alt"
+					 #avatarImg>
+		</a>
+		<span>&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;</span>
+		<a class="bluishText"
+			 (click)="handleLoginState()">{{isLoggedIn ? 'התנתק' : 'התחבר'}}</a>
+	</div>
+	<div id="logoTextHeader">
+		<img [src]="logoText.src"
+				 [alt]="logoText.alt">
+	</div>
+	<div id="logoGaugeHeader">
+		<img [src]="logoGauge.src"
+				 [alt]="logoGauge.alt">
+	</div>
+</header>

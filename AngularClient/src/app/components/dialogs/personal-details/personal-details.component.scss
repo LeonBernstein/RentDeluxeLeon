@@ -1,0 +1,42 @@
+
+.popupContainer .formContainer {
+	display: grid;
+	grid-template-rows: repeat(5, auto) 1fr;
+}
+
+mat-form-field {
+	margin-bottom: 25px;
+}
+
+.radioContainer {
+	margin-bottom: 45px;
+}
+
+.radioContainer > label {
+	margin-left: 16px;
+}
+
+.mat-radio-button ~ .mat-radio-button {
+  margin-right: 16px;
+}
+
+mat-error small {
+	position:  absolute;
+	display: inline-block;
+	font-size: 75%;
+	animation:  customErrorAppear .3s .15s backwards;
+	
+	@keyframes customErrorAppear {
+		from {
+			opacity: 0;
+			transform: translateY(-100%)
+		}
+	}
+}
+
+.popupButtonsContainer {
+	display: grid;
+	align-items: center;
+	grid-template-columns: 1fr 1fr;
+	grid-gap: 30px;
+}

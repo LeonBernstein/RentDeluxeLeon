@@ -1,0 +1,11 @@
+#mainAppContainer {
+	overflow-y: auto;
+	position: absolute;
+	display: grid;
+	grid-template-rows: auto auto 1fr;
+	top: 0;
+	right: 0;
+	bottom: 0;
+	left: 0;
+	animation: appearAnimation .3s ease-out;
+}

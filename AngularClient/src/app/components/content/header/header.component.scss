@@ -1,0 +1,110 @@
+@import 'mixins';
+@import 'myColors';
+
+header {
+	display: grid;
+	grid-template-columns: auto 1fr auto;
+	justify-items: end;
+	align-items: center;
+	padding-bottom: 12px;
+	background-color: rgba(0, 0, 0, .8);
+	
+	@include media('phone') {
+		grid-template-columns: unset;
+		justify-items: center;
+		padding: 0 10px;
+	}
+}
+
+#userHeader {
+	margin: 15px 15px 0;
+	white-space: pre-wrap;
+	
+	@include media('phone') {
+		margin: 15px 0;
+	}
+}
+
+.avatarImgWrapper {
+	img {
+		max-width: 35px;
+		max-height: 35px;
+		margin-right: 11px;
+		margin-bottom: -3px;
+		border-radius: 50%;
+		transition: transform .3s;
+	}
+	
+	a.bluishText {
+		text-decoration: underline;
+	}
+	
+	> *:not(.avatarImgHref) {
+		vertical-align: super;
+	}
+}
+
+
+#logoTextHeader {
+	max-height: 44px;
+}
+
+#logoGaugeHeader {
+	max-height: 55px;
+	margin: 0 17px;
+	
+	img {
+		margin-top: 7px;
+	}
+	@include media('phone') {
+		margin-top: 15px;
+		margin-bottom: 10px;
+	}
+}
+
+img {
+	max-height: inherit;
+	max-width: 100%;
+}
+
+.scrollMenu {
+	z-index: 1;
+	position: fixed;
+	top: 20px;
+	right: 20px;
+}
+
+button[mat-icon-button] {
+	background-color: rgba($matGrey, .85);
+}
+
+.menuItem {
+	user-select: none;
+	outline: 0;
+	border: none;
+	-webkit-tap-highlight-color: transparent;
+	white-space: nowrap;
+	overflow: hidden;
+	text-overflow: ellipsis;
+	display: block;
+	line-height: 48px;
+	height: 48px;
+	padding: 0 16px;
+	text-align: left;
+	text-decoration: none;
+	max-width: 100%;
+	position: relative;
+	text-align: right;
+}
+
+.avatarImgWrapper.menuItem {
+	display: flex;
+	
+	.userName {
+		overflow: hidden;
+		text-overflow: ellipsis;
+	}
+	.avatarImgHref {
+		margin-top: 2px;
+	}
+}

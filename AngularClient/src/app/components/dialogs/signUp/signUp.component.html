@@ -1,0 +1,71 @@
+<div class="popupContainer">
+	<div class="closeDialog">
+		<a (click)="closeThisDialog()">&#9747;</a>
+	</div>
+	<form [formGroup]="signUpForm"
+				(ngSubmit)="onSubmit()"
+				class="formContainer">
+		<mat-form-field>
+			<input matInput
+						 formControlName="email"
+						 tabindex="1"
+						 type="text"
+						 placeholder="מייל"
+						 spellcheck="false"
+						 required
+						 [pattern]="emailPattern">
+			<mat-error *ngIf="!!email.errors?.required">השדה אינו יכול להיות ריק</mat-error>
+			<mat-error *ngIf="!!email.errors?.pattern">המייל שהוזן אינו תקין</mat-error>
+			<mat-error *ngIf="!!email.errors?.userEmailExists">מייל זה כבר קיים במערכת</mat-error>
+		</mat-form-field>
+		<mat-form-field>
+			<input matInput
+						 formControlName="password"
+						 tabindex="2"
+						 type="password"
+						 placeholder="סיסמה"
+						 autocomplete="new-password"
+						 required
+						 minlength="6"
+						 maxlength="16"
+						 [pattern]="allowedPassChars">
+			<mat-error *ngIf="!!password.errors?.required">השדה אינו יכול להיות ריק</mat-error>
+			<mat-error *ngIf="!!password.errors?.minlength">הסיסמה קצרה מדי, מינימום 6 תווים</mat-error>
+			<mat-error *ngIf="!!password.errors?.maxlength">הסיסמה ארוכה מדי, מקסימום 16 תווים</mat-error>
+			<mat-error *ngIf="!!password.errors?.pattern">הסיסמה מכילה תווים לא תקינים</mat-error>
+		</mat-form-field>
+		<mat-form-field>
+			<input matInput
+						 formControlName="rePassword"
+						 tabindex="3"
+						 type="password"
+						 placeholder="אימות סיסמה"
+						 autocomplete="new-password"
+						 required
+						 minlength="6"
+						 maxlength="16"
+						 [pattern]="allowedPassChars">
+			<mat-error *ngIf="!!rePassword.errors?.required">השדה אינו יכול להיות ריק</mat-error>
+			<mat-error *ngIf="!!rePassword.errors?.minlength">הסיסמה קצרה מדי, מינימום 6 תווים</mat-error>
+			<mat-error *ngIf="!!rePassword.errors?.maxlength">הסיסמה ארוכה מדי, מקסימום 16 תווים</mat-error>
+			<mat-error *ngIf="!!rePassword.errors?.pattern">הסיסמה מכילה תווים לא תקינים</mat-error>
+		</mat-form-field>
+		<div class="invalidDetails">
+			<small *ngIf="!!signUpForm.errors?.misMatch">הסיסמאות לא זהות</small>
+			<small *ngIf="!signUpForm.errors?.misMatch &&
+										password.value &&
+										rePassword.value"
+						 class="validDetails">הסיסמאות זהות</small>
+		</div>
+		<div class="popupButtonsContainer">
+			<mat-checkbox formControlName="stayLoggedIn">הישאר מחובר</mat-checkbox>
+			<button mat-button
+							type="button"
+							(click)="openLoginDialog()">יש לי חשבון</button>
+			<button mat-flat-button
+							type="submit"
+							tabindex="4"
+							color="primary">צור חשבון</button>
+		</div>
+	</form>
+</div>

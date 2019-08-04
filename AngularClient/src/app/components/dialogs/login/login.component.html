@@ -1,0 +1,55 @@
+<div class="popupContainer">
+	<div class="closeDialog">
+		<a (click)="closeThisDialog()">&#9747;</a>
+	</div>
+	<form class="formContainer"
+				#loginForm="ngForm"
+				(ngSubmit)="onSubmit(loginForm)"
+				(keyup.enter)="onSubmit(loginForm)">
+		<mat-form-field>
+			<input matInput
+						 [(ngModel)]="loginUserData.email"
+						 #email="ngModel"
+						 tabindex="1"
+						 type="text"
+						 name="email"
+						 placeholder="מייל"
+						 spellcheck="false"
+						 [pattern]="emailPattern"
+						 required
+						 (change)="isWrongDetails = false">
+			<mat-error *ngIf="!email.value">השדה אינו יכול להיות ריק</mat-error>
+			<mat-error *ngIf="email.value && !email.valid">המייל שהוזן אינו תקין</mat-error>
+		</mat-form-field>
+		<mat-form-field>
+			<input matInput
+						 [(ngModel)]="loginUserData.password"
+						 #password="ngModel"
+						 tabindex="2"
+						 type="password"
+						 name="password"
+						 placeholder="סיסמה"
+						 required
+						 (change)="isWrongDetails = false">
+			<mat-error *ngIf="!password.value">השדה אינו יכול להיות ריק</mat-error>
+		</mat-form-field>
+		<div class="invalidDetails">
+			<small *ngIf="isWrongDetails">*המייל או הסיסמה אינם תקינים!</small>
+		</div>
+		<div class="popupButtonsContainer">
+			<mat-checkbox [(ngModel)]="loginUserData.stayLoggedIn"
+										name="stayLoggedIn">הישאר מחובר</mat-checkbox>
+			<button mat-button
+							type="button"
+							(click)="openForgotPassDialog()">שכחתי סיסמה</button>
+			<button mat-flat-button
+							type="button"
+							color="accent"
+							(click)="openSignUpDialog()">צור חשבון</button>
+			<button mat-flat-button
+							type="submit"
+							tabindex="3"
+							color="primary">התחבר</button>
+		</div>
+	</form>
+</div>

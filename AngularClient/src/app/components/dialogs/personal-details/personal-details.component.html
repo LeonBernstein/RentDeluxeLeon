@@ -1,0 +1,93 @@
+<div class="popupContainer">
+	<div class="closeDialog">
+		<a (click)="closeThisDialog()">&#9747;</a>
+	</div>
+	<form class="formContainer"
+				#personForm="ngForm"
+				(ngSubmit)="onSubmit(personForm)"
+				(keyup.enter)="onSubmit(personForm)">
+		<mat-form-field>
+			<input matInput
+						 type="text"
+						 #firstName="ngModel"
+						 [(ngModel)]="personData.firstName"
+						 name="firstName"
+						 placeholder="שם פרטי"
+						 spellcheck="false"
+						 tabindex="1"
+						 required>
+			<mat-error *ngIf="!!firstName.errors?.required">השדה אינו יכול להיות ריק</mat-error>
+		</mat-form-field>
+		<mat-form-field>
+			<input matInput
+						 type="text"
+						 #lastName="ngModel"
+						 [(ngModel)]="personData.lastName"
+						 name="lastName"
+						 placeholder="שם משפחה"
+						 spellcheck="false"
+						 tabindex="2"
+						 required>
+			<mat-error *ngIf="!!lastName.errors?.required">השדה אינו יכול להיות ריק</mat-error>
+		</mat-form-field>
+		<mat-form-field>
+			<input matInput
+						 numericOnly
+						 type="text"
+						 #idCardNum="ngModel"
+						 [(ngModel)]="personData.idCardNum"
+						 name="idCardNum"
+						 placeholder="ת.ז"
+						 spellcheck="false"
+						 tabindex="3"
+						 minlength="8"
+						 maxlength="9"
+						 [pattern]="numericOnly"
+						 required>
+			<mat-error *ngIf="!!idCardNum.errors?.required">השדה אינו יכול להיות ריק</mat-error>
+			<mat-error *ngIf="idCardNum.value && idCardNum.invalid">המספר שהוזן אינו תקין</mat-error>
+		</mat-form-field>
+		<mat-form-field>
+			<input matInput
+						 #birthDate
+						 [matDatepicker]="birthday"
+						 [(ngModel)]="personData.birthday"
+						 name="birthday"
+						 placeholder="תאריך לידה"
+						 tabindex="4"
+						 [min]="minDate"
+						 [max]="maxDate">
+			<mat-datepicker-toggle matSuffix
+														 [for]="birthday"></mat-datepicker-toggle>
+			<mat-datepicker #birthday></mat-datepicker>
+			<mat-error>התאריך שהוזן אינו תקין</mat-error>
+		</mat-form-field>
+		<div class="radioContainer">
+			<label>מין:</label>
+			<mat-radio-group #gender="ngModel"
+											 [(ngModel)]="personData.gender"
+											 name="gender"
+											 required>
+				<mat-radio-button value="m"
+													tabindex="5">זכר</mat-radio-button>
+				<mat-radio-button value="f"
+													tabindex="6">נקבה</mat-radio-button>
+				<mat-radio-button value="o"
+													tabindex="7">אחר</mat-radio-button>
+				<mat-error *ngIf="!gender.valid && personForm.submitted">
+					<small>מין לא נבחר</small>
+				</mat-error>
+			</mat-radio-group>
+		</div>
+		<div class="popupButtonsContainer">
+			<button mat-flat-button
+							type="button"
+							color="accent"
+							(click)="goBack()">חזור</button>
+			<button mat-flat-button
+							type="submit"
+							tabindex="9"
+							color="primary">שלח</button>
+		</div>
+	</form>
+</div>

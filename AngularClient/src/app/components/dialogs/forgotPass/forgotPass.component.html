@@ -1,0 +1,18 @@
+<div class="popupContainer">
+	<div class="closeDialog">
+		<a (click)="closeThisDialog()">&#9747;</a>
+	</div>
+	<h3>לשיחזור הסיסמה, אנה פנה אלינו במייל זה:</h3>
+	<h3>
+		<a class="bluishText"
+			 href="mailto:{{leonsEmail}}">unlimited.2013@gmail.com</a>
+	</h3>
+	<div class="popupButtonsContainer">
+		<button mat-button
+						type="button"
+						(click)="openLoginDialog()">התחבר</button>
+		<button mat-button
+						type="button"
+						(click)="openSignUpDialog()">צור חשבון</button>
+	</div>
+</div>
